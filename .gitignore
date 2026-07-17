@@ -1,0 +1,25 @@
+# Dependencies & build output (never commit these)
+node_modules/
+web/.next/
+web/out/
+web/build/
+*.tsbuildinfo
+web/next-env.d.ts
+
+# Logs & OS cruft
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Local tooling
+.vscode/
+.idea/
+
+# Secrets — .env.local is NOT committed (GitHub secret scanning blocks it, and
+# it holds the LiveKit key/secret + admin password). .env.example is the
+# committed template; copy it to .env.local and fill in real values locally.
+web/.env.local
+
+# Supabase CLI temp
+web/supabase/.temp/

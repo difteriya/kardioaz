@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * kardio.az — design system  ("measured rhythm")
+ * Palette: warm porcelain · clinical teal · pulse crimson · slate ink
+ * ------------------------------------------------------------------ */
+
+:root {
+  --porcelain: #f7f6f2; /* warm-neutral background */
+  --porcelain-2: #efeee8; /* raised surface */
+  --ink: #16232b; /* primary text / headings — deep slate, not black */
+  --ink-soft: #45555e; /* secondary text */
+  --teal: #175c55; /* brand — care / trust */
+  --teal-deep: #0f3f3a; /* hover / dark teal */
+  --pulse: #e5484d; /* heartbeat accent — used with restraint */
+  --mist: #cbd6d3; /* hairline borders / dividers */
+  --mist-soft: #dfe6e3;
+}
+
+@theme inline {
+  --color-porcelain: var(--porcelain);
+  --color-porcelain-2: var(--porcelain-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-teal: var(--teal);
+  --color-teal-deep: var(--teal-deep);
+  --color-pulse: var(--pulse);
+  --color-mist: var(--mist);
+  --color-mist-soft: var(--mist-soft);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-label);
+
+  --radius-card: 4px;
+}
+
+body {
+  background: var(--porcelain);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Utility: eyebrow / small-caps label (Space Grotesk) */
+.eyebrow {
+  font-family: var(--font-mono), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+/* Signature: single-stroke pulse line, draws once on load */
+.pulse-line path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pulse-draw 2.2s ease-out 0.2s forwards;
+}
+@keyframes pulse-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-line path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Looping heartbeat: a bright pulse travels the line continuously. */
+.pulse-travel-path {
+  stroke-dasharray: 0.22 0.78;
+  animation: pulse-travel 2.4s linear infinite;
+}
+@keyframes pulse-travel {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-travel-path {
+    animation: none;
+    stroke-dasharray: none;
+  }
+}
+
+/* ECG-paper grid — thematic hero texture, faded at the edges. */
+.ecg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--pulse) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--pulse) 7%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(115% 90% at 85% 0%, #000 30%, transparent 72%);
+  mask-image: radial-gradient(115% 90% at 85% 0%, #000 30%, transparent 72%);
+}
+
+/* Quiet rise-in on scroll-into-view (progressive enhancement). */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+/* Section eyebrow with a leading pulse tick. */
+.eyebrow-tick {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.eyebrow-tick::before {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  background: var(--pulse);
+  border-radius: 2px;
+}
+
+/* Soft elevation — replaces flat hairline separation with depth. */
+.shadow-soft {
+  box-shadow:
+    0 1px 2px rgba(20, 35, 43, 0.04),
+    0 10px 30px -14px rgba(20, 35, 43, 0.14);
+}
+.shadow-soft-lg {
+  box-shadow:
+    0 2px 6px rgba(20, 35, 43, 0.05),
+    0 24px 48px -20px rgba(20, 35, 43, 0.2);
+}
+
+/* Interactive card: gentle lift on hover. */
+.card {
+  background: var(--porcelain);
+  border: 1px solid var(--mist-soft);
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 2px rgba(20, 35, 43, 0.04),
+    0 10px 30px -16px rgba(20, 35, 43, 0.12);
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--teal) 35%, var(--mist));
+  box-shadow:
+    0 2px 6px rgba(20, 35, 43, 0.05),
+    0 28px 50px -22px rgba(23, 92, 85, 0.28);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card-hover:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Warm ambient glow — softens the hero. */
+.hero-glow {
+  background:
+    radial-gradient(
+      42% 55% at 82% 12%,
+      color-mix(in srgb, var(--teal) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38% 45% at 8% 88%,
+      color-mix(in srgb, var(--pulse) 9%, transparent),
+      transparent 72%
+    );
+}
+
+/* LiveKit: hide the per-tile focus toggle. Its icon reads as "fullscreen" but it
+ * only re-lays-out the tiles, which misleads patients — and with just a doctor
+ * and a patient there is nothing to focus. Real fullscreen lives in our own
+ * control bar (see components/consultation-room.tsx). */
+.lk-focus-toggle-button {
+  display: none !important;
+}
+
+/* Post body — typography for WordPress-rendered HTML content */
+.post-body > * + * {
+  margin-top: 1.25rem;
+}
+.post-body h2 {
+  font-family: var(--font-display), serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-top: 2.5rem;
+}
+.post-body h3 {
+  font-family: var(--font-display), serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 2rem;
+}
+.post-body h4 {
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 1.5rem;
+}
+.post-body a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.post-body strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.post-body ul,
+.post-body ol {
+  padding-left: 1.5rem;
+}
+.post-body ul {
+  list-style: disc;
+}
+.post-body ol {
+  list-style: decimal;
+}
+.post-body li + li {
+  margin-top: 0.5rem;
+}
+.post-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-top: 1.5rem;
+  border: 1px solid var(--mist);
+}
+.post-body figure {
+  margin-top: 1.5rem;
+}
+.post-body figcaption {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+}
+.post-body blockquote {
+  border-left: 3px solid var(--teal);
+  padding-left: 1rem;
+  color: var(--ink);
+  font-style: italic;
+}
+.post-body iframe {
+  max-width: 100%;
+  margin-top: 1.5rem;
+  border-radius: 4px;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+}
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.post-body th,
+.post-body td {
+  border: 1px solid var(--mist);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
