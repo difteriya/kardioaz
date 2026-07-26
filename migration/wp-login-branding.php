@@ -32,6 +32,36 @@ add_filter('login_headertext', function () {
     return 'kardio.az';
 });
 
+/* "← Go to <site title>" → point at the live public site (kardio.az), not the
+   admin-locked CMS, and label it in Azerbaijani. Replaces the whole link. */
+add_filter('login_site_html_link', function () {
+    return '<a href="https://kardio.az">← kardio.az saytına keç</a>';
+});
+
+/* Azerbaijani login page. Rather than depend on the site language / the
+   completeness of the core `az` translation, override just the visible
+   login-screen strings — and only on the login page (scoped via login_init),
+   so the admin UI language is untouched. */
+add_action('login_init', function () {
+    add_filter('gettext', function ($translated, $text, $domain) {
+        if ($domain !== 'default') {
+            return $translated;
+        }
+        static $az = [
+            'Username or Email Address' => 'İstifadəçi adı və ya e-poçt',
+            'Password'                  => 'Parol',
+            'Remember Me'               => 'Məni xatırla',
+            'Log In'                    => 'Daxil ol',
+            'Lost your password?'       => 'Parolunuzu unutmusunuz?',
+            'Show password'             => 'Parolu göstər',
+            'Hide password'             => 'Parolu gizlə',
+            'Language'                  => 'Dil',
+            'Change'                    => 'Dəyiş',
+        ];
+        return $az[$text] ?? $translated;
+    }, 20, 3);
+});
+
 /* Keep the CMS out of search results (belt-and-braces with the headless guard). */
 add_action('login_head', function () {
     header('X-Robots-Tag: noindex, nofollow', true);
