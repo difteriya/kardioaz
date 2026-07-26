@@ -38,6 +38,10 @@ add_filter('login_site_html_link', function () {
     return '<a href="https://kardio.az">← kardio.az saytına keç</a>';
 });
 
+/* The CMS login is Azerbaijian-only (forced below) and single-admin, so the
+   language switcher is redundant — remove it entirely (not just hide it). */
+add_filter('login_display_language_dropdown', '__return_false');
+
 /* Azerbaijani login page. Rather than depend on the site language / the
    completeness of the core `az` translation, override just the visible
    login-screen strings — and only on the login page (scoped via login_init),
@@ -55,8 +59,6 @@ add_action('login_init', function () {
             'Lost your password?'       => 'Parolunuzu unutmusunuz?',
             'Show password'             => 'Parolu göstər',
             'Hide password'             => 'Parolu gizlə',
-            'Language'                  => 'Dil',
-            'Change'                    => 'Dəyiş',
         ];
         return $az[$text] ?? $translated;
     }, 20, 3);
@@ -164,25 +166,6 @@ add_action('login_head', function () {
       border-color:#cbd6d3 !important;
       border-radius:10px !important;
     }
-
-    /* Language switcher sits OUTSIDE #login, so the .login form card rule above
-       stretched it into a full-width white bar. Reset it and constrain its width
-       to match the login box. */
-    .login .language-switcher{
-      width:360px !important;
-      margin:16px auto 0 !important;
-    }
-    .login .language-switcher form{
-      background:none !important;
-      border:none !important;
-      box-shadow:none !important;
-      padding:0 !important;
-      display:flex !important;
-      align-items:center !important;
-      justify-content:center !important;
-      gap:8px !important;
-    }
-    .login .language-switcher select{ max-width:200px !important; }
 
     /* Links + notices */
     .login #nav a, .login #backtoblog a{ color:#45555e !important; }
