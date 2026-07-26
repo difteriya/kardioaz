@@ -6,8 +6,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      // Booking/consultation flows are private app pages, not for indexing.
-      disallow: ["/randevu/", "/admin/", "/konsultasiya/"],
+      // /randevu itself is the indexable online-consultation landing; only the
+      // private token flows (confirm/cancel), the admin panel and live
+      // consultation rooms are kept out of the index.
+      disallow: ["/randevu/tesdiq", "/randevu/legv", "/admin/", "/konsultasiya/"],
     },
     sitemap: `${SITE.url}/sitemap.xml`,
     host: SITE.url,

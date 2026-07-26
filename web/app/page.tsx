@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PulseMark } from "@/components/pulse-mark";
@@ -9,6 +10,15 @@ import { JsonLd } from "@/components/json-ld";
 import { physicianSchema, organizationSchema } from "@/lib/schema";
 import { content } from "@/lib/content";
 import { DOCTOR, SITE, CONTACT, PHOTOS } from "@/lib/site";
+
+export const metadata: Metadata = {
+  // Absolute title (no "— kardio.az" template) so the homepage leads with the
+  // core keywords: kardioloq, ürək həkimi, onlayn + the brand.
+  title: { absolute: "Kardioloq Dr. Kənan Əhmədov — onlayn ürək həkimi" },
+  description:
+    "Kardioloq Dr. Kənan Əhmədov (Kenan Ehmedov) — ürək-damar xəstəliklərinin diaqnostikası, müalicəsi və onlayn video konsultasiya. Bakıda peşəkar ürək həkimi.",
+  alternates: { canonical: "/" },
+};
 
 const SERVICES = [
   {

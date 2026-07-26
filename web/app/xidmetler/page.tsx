@@ -10,7 +10,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { SITE, CONTACT, PHOTOS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Xidmətlər",
+  title: "Kardioloji xidmətlər",
   description:
     "Kardioloji xidmətlər: ürək diaqnostikası (EKQ, exokardioqrafiya, Holter, MRT), xəstəliklərin müalicəsi, invaziv kardiologiya (TAVİ, EVAR), onlayn konsultasiya və müayinələr.",
   alternates: { canonical: "/xidmetler" },

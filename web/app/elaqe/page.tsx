@@ -7,7 +7,7 @@ import { organizationSchema, breadcrumbSchema } from "@/lib/schema";
 import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Əlaqə",
+  title: "Kardioloq ilə əlaqə",
   description:
     "Kardioloq Dr. Kənan Əhmədov ilə əlaqə — telefon, e-poçt və ünvan. Onlayn randevu üçün keçid.",
   alternates: { canonical: "/elaqe" },

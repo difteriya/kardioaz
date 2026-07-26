@@ -8,7 +8,7 @@ import { physicianSchema, breadcrumbSchema } from "@/lib/schema";
 import { DOCTOR, SITE, PHOTOS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Haqqımda",
+  title: "Kardioloq Dr. Kənan Əhmədov haqqında",
   description: `${DOCTOR.name} (${DOCTOR.nameAscii}) — invaziv kardioloq. 2003-cü ildən təcrübə; Azərbaycan, Avstriya və Almaniyada ixtisas. Təhsil, karyera və beynəlxalq təlimlər.`,
   alternates: { canonical: "/haqqimda" },
 };
