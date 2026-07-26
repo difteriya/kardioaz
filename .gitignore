@@ -23,3 +23,7 @@ web/.env.local
 
 # Supabase CLI temp
 web/supabase/.temp/
+
+# One-time migration data (large / regeneratable, may contain author emails)
+migration/*.xml
+migration/post-images/

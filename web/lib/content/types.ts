@@ -29,6 +29,8 @@ export interface PostSeo {
 }
 
 export interface Post {
+  /** WordPress post ID — needed to load/submit comments. */
+  wpId?: number;
   slug: string;
   title: string;
   excerpt: string;

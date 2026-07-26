@@ -42,6 +42,37 @@ Install: `wp-content/mu-plugins/wp-headless-guard.php` on cms.kardio.az (auto-lo
 ⚠️ Untested until the server exists — run the verify checklist at the bottom of the file
 before repointing `WORDPRESS_API_URL`. Needs CMS permalinks set to `/%category%/%postname%/`.
 
+## ⭐ WordPress REST write access (needed for the whole SEO phase)
+
+The Plesk server **strips the `Authorization` header** before it reaches PHP, so standard
+Application Password auth over REST fails (every request looks anonymous). Fixed with a
+must-use plugin — this is the foundation for all future automated WordPress writes
+(post optimization, new articles, Yoast meta, bulk edits).
+
+- **Plugin:** `wp-rest-auth-fix.php` → `wp-content/mu-plugins/` on cms.kardio.az. It reads
+  Basic credentials from a custom **`X-WP-Auth`** header (which the server does NOT strip) and
+  re-injects them into PHP's auth globals.
+- **API clients send:** `X-WP-Auth: Basic base64(username:application_password)` — NOT the
+  standard `Authorization` header.
+- **Credentials (in `web/.env.local`):** `WP_MIGRATE_USER` = the WordPress **login** (e.g.
+  `difteriya`, user #1) — NOT the app-password's name — and `WP_MIGRATE_APP_PASSWORD` = the
+  Application Password. Revoke the app password when automation is done for a while.
+- Verified 2026-07-26: read + write both work (created/deleted a category, uploaded media,
+  set featured images).
+
+## Content notes (post-import)
+
+- **Featured images:** the WXR import left `_thumbnail_id` dangling (off-by-one) on every
+  post, and Yoast never populated og:image. The frontend resolves the image as
+  og:image → `_embed` featured media → first inline image (`lib/content/wordpress.ts`). The
+  6 text-only / broken-image posts were repaired via the API (uploaded + set featured).
+- **Category IDs on the fresh install:** blog=2, hekimler-ucun=3, xestelikler=4 (were
+  27/26/61). Wired into `wordpress.ts`.
+- **Dual-category posts:** `vasculitis` and `managing-hypertension-in-pregnancy…` are tagged
+  `[hekimler-ucun, xestelikler]`; their canonical (first) category is hekimler-ucun, so they
+  live there. If they should be under xestelikler instead, reorder their categories in WP
+  (or via API) so xestelikler is first.
+
 ## Phase-3 migration order (must not delete old site early)
 
 1. Old WP → **Tools ▸ Export ▸ All content** (WXR). Also export media.

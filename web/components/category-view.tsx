@@ -38,8 +38,9 @@ export function CategoryView({
         <p className="mt-14 text-ink-soft">Bu kateqoriyada hələ yazı yoxdur.</p>
       ) : (
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* categorySlug = the post's own canonical category, not this list's. */}
           {posts.map((post) => (
-            <PostCard key={post.slug} post={post} categorySlug={category.slug} />
+            <PostCard key={post.slug} post={post} categorySlug={post.categorySlug} />
           ))}
         </div>
       )}

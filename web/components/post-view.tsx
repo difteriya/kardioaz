@@ -4,14 +4,16 @@ import type { Category, Post } from "@/lib/content";
 import { RelatedCard } from "./related-card";
 import { PulseMark } from "./pulse-mark";
 import { PostCta } from "./post-cta";
+import { CommentSection } from "./comment-section";
 import { JsonLd } from "./json-ld";
+import { listComments } from "@/lib/comments";
 import { splitHtmlIntoSections } from "@/lib/html";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { formatDateAz } from "@/lib/format";
 import { LANG_LABEL } from "@/lib/lang";
 import { DOCTOR, SITE } from "@/lib/site";
 
-export function PostView({
+export async function PostView({
   post,
   category,
   related,
@@ -20,6 +22,7 @@ export function PostView({
   category: Category;
   related: Post[];
 }) {
+  const comments = post.wpId ? await listComments(post.wpId) : [];
   const schemas: object[] = [
     articleSchema(post, category.slug),
     breadcrumbSchema([
@@ -109,6 +112,9 @@ export function PostView({
           {/* Closing CTA — after the FAQ, so it is the last thing read. A reader
               who finished the whole article is the warmest audience on the page. */}
           <PostCta />
+
+          {/* Comments — moderated; new ones held for approval (see /api/comments) */}
+          {post.wpId && <CommentSection postId={post.wpId} comments={comments} />}
         </article>
 
         {/* Sidebar */}
@@ -136,7 +142,7 @@ export function PostView({
               <h2 className="eyebrow eyebrow-tick mb-4">Oxşar yazılar</h2>
               <div className="grid gap-4">
                 {related.map((r) => (
-                  <RelatedCard key={r.slug} post={r} categorySlug={category.slug} />
+                  <RelatedCard key={r.slug} post={r} categorySlug={r.categorySlug} />
                 ))}
               </div>
             </div>
