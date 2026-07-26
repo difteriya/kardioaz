@@ -107,7 +107,7 @@ export default async function HomePage() {
     await Promise.all(
       postTabDefs.map(async (c) => ({
         ...c,
-        posts: (await content.getPostsByCategory(c.slug).catch(() => [])).slice(0, 4),
+        posts: (await content.getPostsByCategory(c.slug).catch(() => [])).slice(0, 3),
       })),
     )
   ).filter((c) => c.posts.length > 0);

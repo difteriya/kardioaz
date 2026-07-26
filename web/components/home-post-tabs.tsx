@@ -39,7 +39,7 @@ export function HomePostTabs({ categories }: { categories: Cat[] }) {
         })}
       </div>
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {current.posts.map((post) => (
           <PostCard key={post.slug} post={post} categorySlug={post.categorySlug} />
         ))}
