@@ -4,6 +4,7 @@ import type { Category, Post } from "@/lib/content";
 import { RelatedCard } from "./related-card";
 import { PulseMark } from "./pulse-mark";
 import { PostCta } from "./post-cta";
+import { AuthorCard } from "./author-card";
 import { CommentSection } from "./comment-section";
 import { JsonLd } from "./json-ld";
 import { listComments } from "@/lib/comments";
@@ -108,6 +109,9 @@ export async function PostView({
               </dl>
             </section>
           ) : null}
+
+          {/* Author E-E-A-T card — who wrote this (medical/YMYL trust signal). */}
+          <AuthorCard />
 
           {/* Closing CTA — after the FAQ, so it is the last thing read. A reader
               who finished the whole article is the warmest audience on the page. */}
