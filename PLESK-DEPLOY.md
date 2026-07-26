@@ -74,6 +74,10 @@ LIVEKIT_API_KEY=<...>
 LIVEKIT_API_SECRET=<...>
 SMTP_HOST=<...>  SMTP_PORT=<...>  SMTP_USER=<...>  SMTP_PASS=<...>  SMTP_FROM=<...>
 DOCTOR_EMAIL=ahmadovkardio@gmail.com
+# ↑ Owner decision (2026-07-26): leave SMTP_* UNSET until the domain cut-over,
+#   then use the domain mailbox (info@kardio.az) as the sender. The app fails
+#   safe with no SMTP (email.ts send() is try/catch) — booking never 500s;
+#   only the confirm/notice mails are skipped. Add SPF/DKIM before real traffic.
 ADMIN_PASSWORD=<STRONG value — not the demo one>
 REVALIDATE_SECRET=<random secret>
 STATS_SALT=<random secret>
