@@ -5,6 +5,7 @@ import { RelatedCard } from "./related-card";
 import { PulseMark } from "./pulse-mark";
 import { PostCta } from "./post-cta";
 import { AuthorCard } from "./author-card";
+import { PostLightbox } from "./post-lightbox";
 import { CommentSection } from "./comment-section";
 import { JsonLd } from "./json-ld";
 import { listComments } from "@/lib/comments";
@@ -39,6 +40,7 @@ export async function PostView({
   return (
     <div className="mx-auto max-w-6xl px-5 pt-14">
       <JsonLd data={schemas} />
+      <PostLightbox />
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-14">
         {/* Main column */}
@@ -67,7 +69,7 @@ export async function PostView({
           <PulseMark className="mt-6 h-4 w-40 text-pulse" />
 
           {post.featuredImage && (
-            <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-mist bg-porcelain-2 shadow-soft">
+            <div data-lightbox className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-mist bg-porcelain-2 shadow-soft">
               <Image
                 src={post.featuredImage}
                 alt={post.title}
