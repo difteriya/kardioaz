@@ -135,6 +135,25 @@ add_action('login_head', function () {
       border-radius:10px !important;
     }
 
+    /* Language switcher sits OUTSIDE #login, so the .login form card rule above
+       stretched it into a full-width white bar. Reset it and constrain its width
+       to match the login box. */
+    .login .language-switcher{
+      width:360px !important;
+      margin:16px auto 0 !important;
+    }
+    .login .language-switcher form{
+      background:none !important;
+      border:none !important;
+      box-shadow:none !important;
+      padding:0 !important;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      gap:8px !important;
+    }
+    .login .language-switcher select{ max-width:200px !important; }
+
     /* Links + notices */
     .login #nav a, .login #backtoblog a{ color:#45555e !important; }
     .login #nav a:hover, .login #backtoblog a:hover{ color:#175c55 !important; }
