@@ -34,6 +34,19 @@ function shiftByRepeat(key: string, mode: RepeatMode, i: number): string {
   return dateKey(dt.getFullYear(), dt.getMonth(), dt.getDate());
 }
 
+/**
+ * 24-hour half-hour options for the start/end pickers. We use a <select> instead
+ * of <input type="time"> because that input renders in the browser's locale —
+ * so an en-US browser shows AM/PM no matter what. A select gives us "18:30".
+ */
+const TIME_OPTIONS: string[] = (() => {
+  const out: string[] = [];
+  for (let t = 6 * 60; t <= 23 * 60; t += 30) {
+    out.push(`${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`);
+  }
+  return out;
+})();
+
 /** 30-min time steps from start to end, e.g. 09:00→12:00 = 6 slots. */
 function timesBetween(start: string, end: string): string[] {
   const [sh, sm] = start.split(":").map(Number);
@@ -258,21 +271,29 @@ export function AdminSlotCalendar({ onCreated }: { onCreated?: () => void }) {
         <div>
           <p className="eyebrow mb-3">Saat aralığı</p>
           <div className="flex items-center gap-2">
-            <input
-              type="time"
+            <select
               value={startTime}
-              step={1800}
               onChange={(e) => setStartTime(e.target.value)}
-              className="w-full rounded-xl border border-mist bg-porcelain px-3 py-2 text-sm outline-none focus:border-teal"
-            />
+              className="w-full rounded-xl border border-mist bg-porcelain px-3 py-2 text-sm text-ink outline-none focus:border-teal"
+            >
+              {TIME_OPTIONS.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
             <span className="text-ink-soft">—</span>
-            <input
-              type="time"
+            <select
               value={endTime}
-              step={1800}
               onChange={(e) => setEndTime(e.target.value)}
-              className="w-full rounded-xl border border-mist bg-porcelain px-3 py-2 text-sm outline-none focus:border-teal"
-            />
+              className="w-full rounded-xl border border-mist bg-porcelain px-3 py-2 text-sm text-ink outline-none focus:border-teal"
+            >
+              {TIME_OPTIONS.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
           </div>
           <p className="mt-2 text-xs text-ink-soft">
             Gündə {times.length} slot × {SLOT_MINUTES} dəq · Azərbaycan vaxtı
