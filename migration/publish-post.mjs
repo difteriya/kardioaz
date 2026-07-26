@@ -67,6 +67,13 @@ async function main() {
     content,
     excerpt: spec.excerpt || "",
     categories: [CAT[spec.categorySlug]],
+    // Yoast SEO fields, writable via REST meta (verified). Fall back to the
+    // post title / excerpt so the frontend's yoast_head_json is always filled.
+    meta: {
+      _yoast_wpseo_title: spec.yoastTitle || spec.title,
+      _yoast_wpseo_metadesc: spec.yoastDesc || spec.excerpt || "",
+      _yoast_wpseo_focuskw: spec.focusKw || "",
+    },
   };
   if (featured) body.featured_media = featured;
 
