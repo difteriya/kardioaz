@@ -14,6 +14,7 @@ interface Slot {
  * appointment is created already `booked`, with the room and both emails sent.
  */
 export function AdminNewBooking({ onCreated }: { onCreated?: () => void }) {
+  const [mode, setMode] = useState<"slot" | "now">("slot");
   const [slots, setSlots] = useState<Slot[] | null>(null);
   const [slotId, setSlotId] = useState("");
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ export function AdminNewBooking({ onCreated }: { onCreated?: () => void }) {
     load();
   }, [load]);
 
-  const valid = slotId && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const valid = (mode === "now" || slotId) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   async function submit() {
     if (!valid) return;
@@ -48,11 +49,19 @@ export function AdminNewBooking({ onCreated }: { onCreated?: () => void }) {
       const res = await fetch("/api/admin/appointments/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slotId, email, fullName, phone }),
+        body: JSON.stringify(
+          mode === "now"
+            ? { now: true, email, fullName, phone }
+            : { slotId, email, fullName, phone },
+        ),
       });
       const d = await res.json().catch(() => ({}));
       if (res.ok) {
-        setMsg("Randevu yaradıldı və təsdiqləndi. E-poçt göndərildi.");
+        setMsg(
+          mode === "now"
+            ? "İndi üçün randevu yaradıldı. Otaq hazırdır, e-poçt göndərildi."
+            : "Randevu yaradıldı və təsdiqləndi. E-poçt göndərildi.",
+        );
         setSlotId("");
         setEmail("");
         setFullName("");
@@ -77,20 +86,39 @@ export function AdminNewBooking({ onCreated }: { onCreated?: () => void }) {
         e-poçt təsdiqi tələb olunmur, randevu dərhal təsdiqlənmiş sayılır.
       </p>
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr_auto]">
+      {/* Vaxt seçimi: mövcud boş slot, yoxsa dərhal (walk-in). */}
+      <div className="mt-4 inline-flex rounded-xl border border-mist bg-porcelain p-1 text-sm">
+        {(["slot", "now"] as const).map((m) => (
+          <button
+            key={m}
+            type="button"
+            onClick={() => setMode(m)}
+            className={`rounded-lg px-4 py-1.5 font-medium transition-colors ${
+              mode === m ? "bg-teal text-porcelain" : "text-ink-soft hover:text-ink"
+            }`}
+          >
+            {m === "slot" ? "Boş vaxt seç" : "İndi"}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr_auto]">
         <label className="text-sm">
-          <span className="block text-ink-soft">Boş vaxt</span>
+          <span className="block text-ink-soft">{mode === "now" ? "Vaxt" : "Boş vaxt"}</span>
           <select
             value={slotId}
             onChange={(e) => setSlotId(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-mist bg-porcelain px-3 py-2 text-sm text-ink outline-none focus:border-teal"
+            disabled={mode === "now"}
+            className="mt-1 w-full rounded-xl border border-mist bg-porcelain px-3 py-2 text-sm text-ink outline-none focus:border-teal disabled:opacity-50"
           >
             <option value="">
-              {slots === null
-                ? "Yüklənir…"
-                : slots.length === 0
-                  ? "Boş vaxt yoxdur"
-                  : "Vaxt seçin"}
+              {mode === "now"
+                ? "İndi (dərhal)"
+                : slots === null
+                  ? "Yüklənir…"
+                  : slots.length === 0
+                    ? "Boş vaxt yoxdur"
+                    : "Vaxt seçin"}
             </option>
             {(slots ?? []).map((s) => (
               <option key={s.id} value={s.id}>
@@ -139,7 +167,7 @@ export function AdminNewBooking({ onCreated }: { onCreated?: () => void }) {
           disabled={!valid || busy}
           className="self-end rounded-xl bg-teal px-5 py-2.5 text-sm font-medium text-porcelain transition-colors hover:bg-teal-deep disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {busy ? "Yaradılır…" : "Randevu yarat"}
+          {busy ? "Yaradılır…" : mode === "now" ? "İndi başlat" : "Randevu yarat"}
         </button>
       </div>
 

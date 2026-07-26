@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { createAppointmentAsDoctor } from "@/lib/booking/service";
+import {
+  createAppointmentAsDoctor,
+  createInstantAppointmentAsDoctor,
+} from "@/lib/booking/service";
 import { isAdmin } from "@/lib/admin-auth";
 import { EMAIL_RE, normalizeName, normalizePhoneAz } from "@/lib/booking/validate";
 
@@ -18,12 +21,14 @@ export async function POST(req: Request) {
 
   const body = (await req.json()) as {
     slotId?: string;
+    now?: boolean;
     email?: string;
     fullName?: string;
     phone?: string;
   };
 
-  if (!body.slotId) {
+  // "İndi" (walk-in) creates its own slot; otherwise a slot must be chosen.
+  if (!body.now && !body.slotId) {
     return NextResponse.json({ error: "Vaxt seçilməyib." }, { status: 400 });
   }
   if (!body.email || !EMAIL_RE.test(body.email)) {
@@ -49,11 +54,10 @@ export async function POST(req: Request) {
     phone = p;
   }
 
-  const result = await createAppointmentAsDoctor(body.slotId, {
-    email: body.email.trim().toLowerCase(),
-    fullName,
-    phone,
-  });
+  const patient = { email: body.email.trim().toLowerCase(), fullName, phone };
+  const result = body.now
+    ? await createInstantAppointmentAsDoctor(patient)
+    : await createAppointmentAsDoctor(body.slotId!, patient);
   return result.ok
     ? NextResponse.json({ ok: true, appointmentId: result.appointmentId })
     : NextResponse.json({ error: result.reason }, { status: 409 });

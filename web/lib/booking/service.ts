@@ -475,25 +475,23 @@ export async function deletePatient(id: string): Promise<{ ok: boolean }> {
  * double opt-in entirely — the doctor IS the confirmation — so it lands as
  * `booked` with a room, and both parties get the confirmation mail.
  */
-export async function createAppointmentAsDoctor(
+type DoctorPatient = { email: string; fullName?: string; phone?: string };
+
+/**
+ * Shared tail for a doctor-created booking: the slot is already reserved
+ * (`booked`), so insert the appointment, mint the room, bump stats and notify
+ * both parties. `failed` tells the caller to roll the slot back.
+ */
+async function finalizeDoctorBooking(
+  db: ReturnType<typeof createAdminClient>,
   slotId: string,
-  patient: { email: string; fullName?: string; phone?: string },
-): Promise<{ ok: true; appointmentId: string } | { ok: false; reason: string }> {
-  const db = createAdminClient();
-  const { email, fullName, phone } = patient;
-
-  // Flip open → booked only if still open (guards against a race with a patient).
-  const { data: slot, error: slotErr } = await db
-    .from("availability_slots")
-    .update({ status: "booked" })
-    .eq("id", slotId)
-    .eq("status", "open")
-    .select("start_at")
-    .maybeSingle();
-  if (slotErr) return { ok: false, reason: slotErr.message };
-  if (!slot) return { ok: false, reason: "Bu vaxt artıq tutulub." };
-
-  const { data: appt, error: apptErr } = await db
+  startAt: string,
+  { email, fullName, phone }: DoctorPatient,
+): Promise<
+  | { ok: true; appointmentId: string }
+  | { ok: false; reason: string; failed: true }
+> {
+  const { data: appt, error } = await db
     .from("appointments")
     .insert({
       slot_id: slotId,
@@ -506,10 +504,8 @@ export async function createAppointmentAsDoctor(
     })
     .select("id, cancel_token")
     .single();
-
-  if (apptErr || !appt) {
-    await db.from("availability_slots").update({ status: "open" }).eq("id", slotId);
-    return { ok: false, reason: apptErr?.message ?? "Xəta baş verdi." };
+  if (error || !appt) {
+    return { ok: false, reason: error?.message ?? "Xəta baş verdi.", failed: true };
   }
 
   const room = await mintRoom(appt.id as string);
@@ -517,16 +513,57 @@ export async function createAppointmentAsDoctor(
 
   await bump("booked", { email, fullName, phone });
   await Promise.all([
-    sendBookingConfirmed(
-      email,
-      slot.start_at,
-      consultationUrl(appt.id as string),
-      appt.cancel_token,
-    ),
-    sendDoctorBookingNotice(slot.start_at, email, consultationUrl(appt.id as string)),
+    sendBookingConfirmed(email, startAt, consultationUrl(appt.id as string), appt.cancel_token),
+    sendDoctorBookingNotice(startAt, email, consultationUrl(appt.id as string)),
   ]);
 
   return { ok: true, appointmentId: appt.id as string };
+}
+
+export async function createAppointmentAsDoctor(
+  slotId: string,
+  patient: DoctorPatient,
+): Promise<{ ok: true; appointmentId: string } | { ok: false; reason: string }> {
+  const db = createAdminClient();
+
+  // Flip open → booked only if still open (guards against a race with a patient).
+  const { data: slot, error: slotErr } = await db
+    .from("availability_slots")
+    .update({ status: "booked" })
+    .eq("id", slotId)
+    .eq("status", "open")
+    .select("start_at")
+    .maybeSingle();
+  if (slotErr) return { ok: false, reason: slotErr.message };
+  if (!slot) return { ok: false, reason: "Bu vaxt artıq tutulub." };
+
+  const r = await finalizeDoctorBooking(db, slotId, slot.start_at, patient);
+  if (!r.ok) await db.from("availability_slots").update({ status: "open" }).eq("id", slotId);
+  return r.ok ? { ok: true, appointmentId: r.appointmentId } : { ok: false, reason: r.reason };
+}
+
+/**
+ * Doctor starts a consultation right now (walk-in) — no pre-existing slot.
+ * Creates a fresh slot at the current time already `booked`, then books it, so
+ * the room's join window is open immediately.
+ */
+export async function createInstantAppointmentAsDoctor(
+  patient: DoctorPatient,
+): Promise<{ ok: true; appointmentId: string } | { ok: false; reason: string }> {
+  const db = createAdminClient();
+  const start = new Date();
+  const end = new Date(start.getTime() + SLOT_MINUTES * 60_000);
+
+  const { data: slot, error } = await db
+    .from("availability_slots")
+    .insert({ start_at: start.toISOString(), end_at: end.toISOString(), status: "booked" })
+    .select("id, start_at")
+    .single();
+  if (error || !slot) return { ok: false, reason: error?.message ?? "Slot yaradıla bilmədi." };
+
+  const r = await finalizeDoctorBooking(db, slot.id as string, slot.start_at, patient);
+  if (!r.ok) await db.from("availability_slots").delete().eq("id", slot.id);
+  return r.ok ? { ok: true, appointmentId: r.appointmentId } : { ok: false, reason: r.reason };
 }
 
 /** Appointments list for the doctor's admin panel. */
