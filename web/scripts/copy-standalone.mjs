@@ -11,6 +11,10 @@ import fs from "node:fs";
 const copies = [
   [".next/static", ".next/standalone/.next/static"],
   ["public", ".next/standalone/public"],
+  // Runtime env: the standalone server chdir's into its own folder and reads
+  // .env from there, so the build must place .env.local next to server.js.
+  // A rebuild wipes .next/, so this re-copies it every time (no manual step).
+  [".env.local", ".next/standalone/.env.local"],
 ];
 
 for (const [from, to] of copies) {

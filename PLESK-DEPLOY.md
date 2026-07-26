@@ -97,6 +97,25 @@ webhook on cms.kardio.az that POSTs to `https://kardio.az/api/revalidate` with
 
 ---
 
+## E.1 Update workflow (every new feature)
+
+After pushing a change to GitHub, on the Plesk server:
+
+```bash
+cd ~/httpdocs/web
+git pull
+npm ci            # only if dependencies changed (package.json); skip otherwise
+npm run build     # postbuild copies static + public + .env.local into standalone
+```
+Then Plesk ▸ **Restart App**.
+
+- **`web/.env.local` is never deleted** — it's git-ignored, so `git pull` leaves it, and the
+  build only reads it. Edit it directly on the server when secrets change.
+- `.next/standalone/.env.local` IS wiped by each build, but `postbuild` re-copies it
+  automatically (`scripts/copy-standalone.mjs`) — no manual `cp` step anymore.
+- Changing a `NEXT_PUBLIC_*` value requires a rebuild (those are inlined at build time);
+  server-only vars (service keys, SMTP, admin password) take effect on restart alone.
+
 ## F. Cut-over order (DNS is managed at HOSTINGER — nameservers point there)
 
 All DNS records are edited in **Hostinger's DNS zone**, NOT in Plesk. Plesk's local DNS zone
