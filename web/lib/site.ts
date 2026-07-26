@@ -81,6 +81,15 @@ export const BLOG_CATEGORIES = [
   { label: "Xəstəliklər", href: "/xestelikler", slug: "xestelikler" },
 ] as const;
 
+/** Services submenu — the areas on /xidmetler plus the dedicated landings. */
+export const SERVICE_LINKS = [
+  { label: "Ürək diaqnostikası", href: "/xidmetler#diaqnostika", slug: "diaqnostika" },
+  { label: "Kardioloji check-up", href: "/kardioloji-check-up", slug: "kardioloji-check-up" },
+  { label: "Xəstəliklərin müalicəsi", href: "/xidmetler#mualice", slug: "mualice" },
+  { label: "İnvaziv kardiologiya", href: "/xidmetler#invaziv", slug: "invaziv" },
+  { label: "Onlayn konsultasiya", href: "/randevu", slug: "onlayn-konsultasiya" },
+] as const;
+
 /** Primary navigation — labels are AZ; hrefs use ASCII-folded slugs. */
 export type NavItem = {
   label: string;
@@ -91,7 +100,7 @@ export type NavItem = {
 export const NAV: readonly NavItem[] = [
   { label: "Ana səhifə", href: "/" },
   { label: "Haqqımda", href: "/haqqimda" },
-  { label: "Xidmətlər", href: "/xidmetler" },
+  { label: "Xidmətlər", href: "/xidmetler", children: SERVICE_LINKS },
   { label: "Bloq", href: "/blog", children: BLOG_CATEGORIES },
   { label: "Əlaqə", href: "/elaqe" },
 ];
