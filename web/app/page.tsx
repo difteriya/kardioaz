@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PulseMark } from "@/components/pulse-mark";
-import { PostCard } from "@/components/post-card";
+import { HomePostTabs } from "@/components/home-post-tabs";
 import { VideoBackground } from "@/components/video-background";
 import { BookingButton } from "@/components/booking-button";
 import { ConsultationCallout } from "@/components/consultation-callout";
@@ -98,7 +98,19 @@ function SectionHead({ eyebrow, title, cta }: { eyebrow: string; title: string; 
 }
 
 export default async function HomePage() {
-  const latestPosts = (await content.getAllPosts().catch(() => [])).slice(0, 3);
+  const postTabDefs = [
+    { slug: "blog", name: "Bloq" },
+    { slug: "xestelikler", name: "Xəstəliklər" },
+    { slug: "hekimler-ucun", name: "Həkimlər üçün" },
+  ];
+  const postTabs = (
+    await Promise.all(
+      postTabDefs.map(async (c) => ({
+        ...c,
+        posts: (await content.getPostsByCategory(c.slug).catch(() => [])).slice(0, 4),
+      })),
+    )
+  ).filter((c) => c.posts.length > 0);
 
   return (
     <>
@@ -284,15 +296,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ---------------- Latest posts ---------------- */}
-      {latestPosts.length > 0 && (
+      {/* ---------------- Latest posts (tabbed by category) ---------------- */}
+      {postTabs.length > 0 && (
         <section className="mx-auto max-w-6xl px-5 pt-24">
           <SectionHead eyebrow="Bloq" title="Son yazılar" cta={{ label: "Bütün yazılar", href: "/blog" }} />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {latestPosts.map((post) => (
-              <PostCard key={post.slug} post={post} categorySlug={post.categorySlug} />
-            ))}
-          </div>
+          <HomePostTabs categories={postTabs} />
         </section>
       )}
 
