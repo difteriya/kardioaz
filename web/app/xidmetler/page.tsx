@@ -29,6 +29,7 @@ const AREAS = [
       { name: "Holter 24 saatlıq monitorinq", desc: "Sutka ərzində ritmin fasiləsiz izlənməsi." },
       { name: "Tredmil stress test", desc: "Fiziki yüklənmə altında ürəyin reaksiyasının yoxlanması." },
     ],
+    link: { href: "/kardioloji-check-up", label: "Kardioloji check-up paketi →" },
   },
   {
     id: "mualice",
@@ -148,6 +149,14 @@ export default function ServicesPage() {
                 </li>
               ))}
             </ul>
+            {area.link && (
+              <Link
+                href={area.link.href}
+                className="mt-6 inline-block text-sm font-medium text-teal hover:underline"
+              >
+                {area.link.label}
+              </Link>
+            )}
             </div>
           </section>
         ))}

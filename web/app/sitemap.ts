@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = SITE.url;
 
-  const staticPages = ["", "/haqqimda", "/xidmetler", "/blog", "/hekimler-ucun", "/xestelikler", "/elaqe"].map(
+  const staticPages = ["", "/haqqimda", "/xidmetler", "/kardioloji-check-up", "/randevu", "/blog", "/hekimler-ucun", "/xestelikler", "/elaqe"].map(
     (path) => ({
       url: `${base}${path}`,
       lastModified: new Date(),
