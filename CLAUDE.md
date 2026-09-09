@@ -30,8 +30,15 @@ WordPress backend**. Brand-new design. **SEO is the #1 goal.**
 - `.claude/skills/seo-post-optimizer` — per-post SEO optimizer (auto-applies AZ dual-spelling).
   Loads only when Claude Code is launched with **kardioaz as the project root**.
 
-## Status (updated 2026-07-17)
-**Phases 0–2 + 4 are BUILT AND RUNNING LOCALLY** in `web/` — not deployed anywhere.
+## Status (updated 2026-09-10)
+**⚠ kardio.az IS LIVE** and serving this Next.js app (verified 2026-09-10: `_next`
+assets + our `Physician`/`MedicalOrganization` JSON-LD on the live HTML). The
+"not deployed anywhere" line that stood here until 2026-09-10 was stale.
+**The live build is older than `main`** — it still carries the pre-SEO homepage
+title. Anything committed here only reaches users after a rebuild + redeploy
+(PLESK-DEPLOY.md §C).
+
+**Phases 0–2 + 4 are BUILT** in `web/`.
 - Full public site (Home, Haqqımda, Xidmətlər, Bloq + categories, Əlaqə, legal pages),
   real content pulled from the live `kardio.az` WP REST API.
 - **Phase 4 works end-to-end locally:** slot → book → email double opt-in → confirm →
@@ -40,8 +47,9 @@ WordPress backend**. Brand-new design. **SEO is the #1 goal.**
 - Admin panel (`/admin`, tabbed): usage stats, patient directory (edit/delete/export
   xlsx+CSV), doctor-created bookings, slot calendar, accept/decline.
 
-**⏭ Not done:** Phase 0.5 (keyword research), Phase 3 (migration & launch — nothing is
-deployed, no VPS/Hostinger setup), Phase 5.
+**⏭ Not done:** Phase 0.5 (keyword research), Phase 5. Phase 3 shipped the front
+end; whether the WordPress side (`cms.kardio.az`) and the redirects went with it is
+unverified — check before assuming.
 
 **⚠ Two decisions reversed by the owner (2026-07-17)** — the "we store nothing" posture is
 gone. We now retain patient **name + mobile + email + visit history** indefinitely in a
