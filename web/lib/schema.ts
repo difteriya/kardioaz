@@ -95,6 +95,15 @@ export function physicianSchema() {
       "@type": "CollegeOrUniversity",
       name: "Azərbaycan Tibb Universiteti",
     },
+    /**
+     * Entity disambiguation, not vanity links. Google currently mixes this
+     * doctor up with other people named Kənan Əhmədov (a dermatologist and a
+     * urologist both rank for the name) and spreads him across four clinic
+     * sites. sameAs tells it which profiles are the same person.
+     * TODO: add the TikTok profile and the verified Google Business place URL
+     * once the owner sends them — do not guess the handles.
+     */
+    sameAs: ["https://www.instagram.com/dr_kenanahmadov_kardioloq/"],
     description: DOCTOR.bioShort,
   };
 }
