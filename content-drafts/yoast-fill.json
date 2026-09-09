@@ -1,0 +1,94 @@
+{
+ "_note": "Yoast title / meta description / focus keyword for the professional posts that came across the migration with all three fields empty. Each is written in the post's own language — the English and German posts are the client's deliberate choice (CLAUDE.md), so they are optimized as they are, not translated. Excerpt is set to the same text as the description so the frontend card and the SERP snippet agree.",
+ "6573": {
+  "slug": "doak-therapy-in-patients-with-kidney-disease",
+  "yoastTitle": "DOAC therapy in patients with kidney disease",
+  "yoastDesc": "Anticoagulation in atrial fibrillation with chronic kidney disease — DOAC dosing across eGFR ranges, and where warfarin still has the edge.",
+  "focusKw": "DOAC kidney disease",
+  "excerpt": "Anticoagulation in atrial fibrillation with chronic kidney disease — DOAC dosing across eGFR ranges, and where warfarin still has the edge."
+ },
+ "6521": {
+  "slug": "aorta-size",
+  "yoastTitle": "Normal aorta size and aortic aneurysm thresholds",
+  "yoastDesc": "Normal aortic diameter by segment, what counts as an aneurysm, medial degeneration, and the size thresholds that trigger surveillance or repair.",
+  "focusKw": "aorta size",
+  "excerpt": "Normal aortic diameter by segment, the definition of an aneurysm, and the size thresholds that trigger surveillance or surgical repair."
+ },
+ "6734": {
+  "slug": "belastungs-ekg-hilft",
+  "yoastTitle": "Belastungs-EKG bei mikrovaskulärer Dysfunktion",
+  "yoastDesc": "Angina pectoris ohne Stenose in der CT-Koronarangiografie: Wann das Belastungs-EKG auf eine mikrovaskuläre Dysfunktion hinweist.",
+  "focusKw": "Belastungs-EKG",
+  "excerpt": "Angina pectoris ohne Stenose in der CT-Koronarangiografie — wann das Belastungs-EKG auf eine mikrovaskuläre Dysfunktion hinweist."
+ },
+ "6585": {
+  "slug": "cold-weather-heart-attacks-preemptive-valve-procedures-flop-better-bleeding-score",
+  "yoastTitle": "Cold weather MINOCA, valve timing, bleeding score",
+  "yoastDesc": "Cardiology round-up: cold weather and MINOCA risk, preemptive valve procedures that failed to deliver, and a better bleeding risk score.",
+  "focusKw": "cold weather heart attack",
+  "excerpt": "Cardiology round-up: cold weather and MINOCA risk, preemptive valve procedures that failed to deliver, and a better bleeding risk score."
+ },
+ "6739": {
+  "slug": "paroxysmale-supraventrikulare-tachykardien",
+  "yoastTitle": "PSVT: Etripamil-Nasenspray zur Selbstbehandlung",
+  "yoastDesc": "Paroxysmale supraventrikuläre Tachykardien: Intranasales Etripamil beendet die Episode oft in Eigenregie und erspart die Notaufnahme.",
+  "focusKw": "paroxysmale supraventrikuläre Tachykardie",
+  "excerpt": "Paroxysmale supraventrikuläre Tachykardien: Intranasales Etripamil beendet die Episode oft in Eigenregie und erspart den Weg in die Notaufnahme."
+ },
+ "6768": {
+  "slug": "amilaidoz-xestelerinde-yarana-bilecek-popeya-elameti",
+  "yoastTitle": "Popeye əlaməti və ürək amiloidozu",
+  "yoastDesc": "Popeye deformasiyası nədir, biseps vətərinin qopması ilə sistem amiloidozu arasında əlaqə və kardioloqun nəyə diqqət etməli olduğu.",
+  "focusKw": "popeye əlaməti amiloidoz",
+  "excerpt": "Popeye deformasiyası nədir, biseps vətərinin qopması ilə sistem amiloidozu arasında əlaqə və kardioloqun nəyə diqqət etməli olduğu."
+ },
+ "6667": {
+  "slug": "chronic-kidney-disease-and-risk-management-standards-of-care-in-diabetes-2024",
+  "yoastTitle": "CKD and risk management: ADA Standards of Care 2024",
+  "yoastDesc": "ADA Standards of Care in Diabetes 2024 — chronic kidney disease screening, albuminuria staging, SGLT2 inhibitors and cardiovascular risk management.",
+  "focusKw": "chronic kidney disease diabetes",
+  "excerpt": "ADA Standards of Care in Diabetes 2024 — CKD screening, albuminuria staging, SGLT2 inhibitors and cardiovascular risk management."
+ },
+ "6674": {
+  "slug": "cardiac-amyloidosis-key-points",
+  "yoastTitle": "Cardiac amyloidosis: 2023 ACC consensus key points",
+  "yoastDesc": "Cardiac amyloidosis (ürək amiloidozu) — red flags, diagnostic pathway and multidisciplinary care, from the 2023 ACC expert consensus decision pathway.",
+  "focusKw": "cardiac amyloidosis",
+  "excerpt": "Cardiac amyloidosis — red flags, the diagnostic pathway and multidisciplinary care, from the 2023 ACC expert consensus decision pathway."
+ },
+ "6743": {
+  "slug": "urine-test-may-reveal-4x-risk-of-cardiovascular-death-in-type-2-diabetes-patients",
+  "yoastTitle": "Albuminuria: 4x cardiovascular death risk in T2D",
+  "yoastDesc": "Albuminuria in type 2 diabetes carries up to four times the cardiovascular death risk — why the urine ACR test is underused and who should get it.",
+  "focusKw": "albuminuria cardiovascular risk",
+  "excerpt": "Albuminuria in type 2 diabetes carries up to four times the cardiovascular death risk — why the urine ACR test is underused and who should get it."
+ },
+ "6384": {
+  "slug": "neue-esc-praxisleitlinien-vorhofflimmern-was-sich-geandert-hat",
+  "yoastTitle": "ESC-Leitlinien Vorhofflimmern 2024: was neu ist",
+  "yoastDesc": "Die aktualisierten ESC-Praxisleitlinien zum Vorhofflimmern (2024): AF-CARE-Konzept, Antikoagulation, Frequenz- und Rhythmuskontrolle im Überblick.",
+  "focusKw": "ESC Leitlinien Vorhofflimmern",
+  "excerpt": "Die aktualisierten ESC-Praxisleitlinien zum Vorhofflimmern 2024 — AF-CARE, Antikoagulation sowie Frequenz- und Rhythmuskontrolle im Überblick."
+ },
+ "6639": {
+  "slug": "guidelines-for-preventing-and-treating-vitamin-d-deficiency-vitamin-d-catismazligi-mualicesi",
+  "yoastTitle": "Vitamin D deficiency: Endocrine Society guideline",
+  "yoastDesc": "Vitamin D for the prevention of disease — the 2024 Endocrine Society clinical practice guideline: who to test, who to treat, and at what dose.",
+  "focusKw": "vitamin D deficiency guideline",
+  "excerpt": "Vitamin D for the prevention of disease — the 2024 Endocrine Society guideline: who to test, who to treat, and at what dose."
+ },
+ "6580": {
+  "slug": "entzundliche-ursachen-von-schlaganfallen-diagnostik-und-therapie-isemik-insultun-iltihabi-sebebleri-diaqnostika-ve-mualicesi",
+  "yoastTitle": "Entzündliche Ursachen von Schlaganfällen",
+  "yoastDesc": "Ischämischer Schlaganfall durch Vaskulitis und andere entzündliche Ursachen — Diagnostik und Therapie im Überblick (Der Nervenarzt 10/2024).",
+  "focusKw": "entzündliche Ursachen Schlaganfall",
+  "excerpt": "Ischämischer Schlaganfall durch Vaskulitis und andere entzündliche Ursachen — Diagnostik und Therapie im Überblick."
+ },
+ "6618": {
+  "slug": "treatment-of-dyslipidemia-in-common-liver-diseases-qaraciyer-xestelikleri-zamani-dislipidemiyanin-mualicesi",
+  "yoastTitle": "Dyslipidemia treatment in common liver diseases",
+  "yoastDesc": "Treating dyslipidemia in NAFLD, hepatitis and cirrhosis — statin safety in liver disease, monitoring, and when to withhold therapy.",
+  "focusKw": "dyslipidemia liver disease",
+  "excerpt": "Treating dyslipidemia in NAFLD, hepatitis and cirrhosis — statin safety in liver disease, monitoring, and when to withhold therapy."
+ }
+}
