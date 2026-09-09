@@ -7,16 +7,37 @@ import { VideoBackground } from "@/components/video-background";
 import { BookingButton } from "@/components/booking-button";
 import { ConsultationCallout } from "@/components/consultation-callout";
 import { JsonLd } from "@/components/json-ld";
-import { physicianSchema, organizationSchema } from "@/lib/schema";
+import { physicianSchema, organizationSchema, websiteSchema, faqSchema } from "@/lib/schema";
 import { content } from "@/lib/content";
 import { DOCTOR, SITE, CONTACT, PHOTOS } from "@/lib/site";
 
 export const metadata: Metadata = {
   // Absolute title (no "— kardio.az" template) so the homepage leads with the
-  // core keywords: kardioloq, ürək həkimi, onlayn + the brand.
-  title: { absolute: "Kardioloq Dr. Kənan Əhmədov — onlayn ürək həkimi" },
+  // head keyword for the local pack — "Bakıda kardioloq" — then the entity
+  // name, then the synonym people actually type ("ürək həkimi").
+  title: { absolute: "Bakıda kardioloq — Dr. Kənan Əhmədov | ürək həkimi" },
   description:
-    "Kardioloq Dr. Kənan Əhmədov (Kenan Ehmedov) — ürək-damar xəstəliklərinin diaqnostikası, müalicəsi və onlayn video konsultasiya. Bakıda peşəkar ürək həkimi.",
+    "Bakıda kardioloq Dr. Kənan Əhmədov (Kenan Ehmedov) — 15+ il təcrübəli ürək həkimi. Ürək-damar xəstəliklərinin diaqnostikası, müalicəsi, kardioloji check-up və onlayn video konsultasiya. Randevu: +994 10 382 29 99.",
+  // Not a ranking factor for Google, but Yandex still reads it and Yandex is a
+  // meaningful share of AZ search. Both spellings, per PROJECT-PLAN §5.
+  keywords: [
+    "kardioloq",
+    "Bakıda kardioloq",
+    "Bakida kardioloq",
+    "yaxşı kardioloq",
+    "yaxsi kardioloq",
+    "ən yaxşı kardioloq",
+    "en yaxsi kardioloq",
+    "ürək həkimi",
+    "urek hekimi",
+    "Bakıda ürək həkimi",
+    "Bakida urek hekimi",
+    "kardioloq həkim",
+    "onlayn kardioloq",
+    "kardioloji check-up",
+    "Kənan Əhmədov kardioloq",
+    "Kenan Ehmedov kardioloq",
+  ],
   alternates: { canonical: "/" },
 };
 
@@ -89,6 +110,46 @@ const PROCEDURES = [
   { title: "Ürək süni ritm cihazı implantasiyası", desc: "Bradikardiya hallarında ürəyin düzgün işini təmin edən prosedur." },
 ];
 
+/**
+ * Homepage FAQ — the questions are written as they are actually typed into
+ * Google ("Bakıda yaxşı kardioloq", "ürək həkimi hansı hallara baxır"), so the
+ * block earns the FAQPage rich result and covers the long tail the head
+ * keywords sit on. Answers stay honest: no invented prices, no "ən yaxşı"
+ * self-award — the ranking claim is answered with criteria, not a boast.
+ */
+const FAQ = [
+  {
+    question: "Bakıda yaxşı kardioloq necə seçilir?",
+    answer:
+      "Yaxşı kardioloqu seçərkən üç şeyə baxın: ixtisas və təcrübə (neçə ildir kardiologiya ilə məşğuldur, invaziv prosedurlar aparırmı), müayinə imkanları (EKQ, exokardioqrafiya, Holter, stress test bir yerdə aparılırmı) və izahın aydınlığı — həkim nəticələri və müalicə planını sizə başa salmalıdır. Dr. Kənan Əhmədov 15 ildən artıqdır invaziv kardioloq kimi çalışır, 2003-cü ildə Azərbaycan Tibb Universitetini bitirib, Avstriya, Almaniya və Türkiyədə ixtisas kursları keçib.",
+  },
+  {
+    question: "Ürək həkimi (kardioloq) hansı hallara baxır?",
+    answer:
+      "Kardioloq arterial hipertoniya (yüksək təzyiq), aritmiya və ürəkdöyünmə, ürək çatışmazlığı, ürək qapaqlarının xəstəlikləri, ateroskleroz, yüksək xolesterol və koronar ürək xəstəliyi ilə məşğul olur. Döş qəfəsində ağrı, təngnəfəslik, ürəyin tez-tez və ya nizamsız döyünməsi, ayaqlarda ödem, tez yorulma və huşitirmə — hamısı ürək həkiminə müraciət üçün əsasdır.",
+  },
+  {
+    question: "Nə vaxt kardioloqa müraciət etmək lazımdır?",
+    answer:
+      "Şikayət yarananda gözləməyin: döş ağrısı, təngnəfəslik, çarpıntı və ya bayılma dərhal müraciət tələb edir. Şikayət olmasa belə, 40 yaşdan sonra, ailəsində erkən ürək xəstəliyi olanlar, hipertoniya, diabet, yüksək xolesterol, artıq çəki və siqaret kimi risk faktorları olanlar ildə bir dəfə kardioloji check-up keçirməlidir. Kəskin döş ağrısında isə əvvəlcə 103-ə zəng edin.",
+  },
+  {
+    question: "Bakıda kardioloq qəbuluna necə yazılmaq olar?",
+    answer:
+      "Randevunu saytdan onlayn seçmək olar: uyğun vaxtı seçirsiniz, e-poçtunuzu təsdiqləyirsiniz və təyin olunmuş saatda qəbula gəlirsiniz. Telefonla yazılmaq üçün +994 10 382 29 99 nömrəsinə zəng edə bilərsiniz.",
+  },
+  {
+    question: "Onlayn kardioloq konsultasiyası mümkündürmü?",
+    answer:
+      "Bəli. Video zəng vasitəsilə şikayətlərinizi müzakirə etmək, analiz və müayinə nəticələrini birlikdə nəzərdən keçirmək, təyin olunmuş müalicəyə ikinci rəy almaq mümkündür. Onlayn konsultasiya regionlardan və xaricdən müraciət edənlər üçün, həmçinin təkrar baxışlar üçün əlverişlidir. Fiziki müayinə tələb edən hallarda həkim sizi kabinet qəbuluna dəvət edir.",
+  },
+  {
+    question: "İlk kardioloq qəbuluna nə gətirmək lazımdır?",
+    answer:
+      "Əvvəlki EKQ, exokardioqrafiya və Holter nəticələrini, son qan analizlərini (xolesterol, qan şəkəri), hazırda qəbul etdiyiniz dərmanların siyahısını və varsa təzyiq ölçmə qeydlərinizi götürün. Bu sənədlər diaqnozu dəqiqləşdirir və təkrar müayinələrə ehtiyacı azaldır.",
+  },
+];
+
 function SectionHead({ eyebrow, title, cta }: { eyebrow: string; title: string; cta?: { label: string; href: string } }) {
   return (
     <div className="flex items-end justify-between gap-6">
@@ -124,7 +185,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLd data={[physicianSchema(), organizationSchema()]} />
+      <JsonLd data={[physicianSchema(), organizationSchema(), websiteSchema(), faqSchema(FAQ)]} />
 
       {/* ---------------- Hero ---------------- */}
       <section className="relative flex min-h-[calc(100svh-73px)] flex-col overflow-hidden">
@@ -132,16 +193,24 @@ export default async function HomePage() {
         <div className="ecg-grid pointer-events-none absolute inset-0" aria-hidden />
         <div className="relative mx-auto grid w-full max-w-6xl flex-1 content-center gap-10 px-5 pt-4 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="flex flex-col justify-center">
-            <p className="eyebrow eyebrow-tick">Kardioloq · Bakı</p>
-            <h1 className="mt-4 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl">
-              Sizin ürək
-              <br />
-              həkiminiz
+            {/* The eyebrow lives inside the h1 so the head keyword ("Bakıda
+                kardioloq") is part of the heading Google reads, while the
+                rendered design is unchanged. */}
+            <h1 className="font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl">
+              <span className="eyebrow eyebrow-tick block font-normal tracking-[0.13em]">
+                Bakıda kardioloq · ürək həkimi
+              </span>
+              <span className="mt-4 block">
+                Sizin ürək
+                <br />
+                həkiminiz
+              </span>
             </h1>
             <PulseMark loop className="mt-5 h-6 w-64 text-pulse" strokeWidth={2.5} />
             <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
-              {DOCTOR.name} — ürək-damar xəstəliklərinin diaqnostikası, müalicəsi
-              və onlayn konsultasiyası. Ürəyinizin sağlamlığı etibarlı əllərdə.
+              {DOCTOR.name} — Bakıda invaziv kardioloq. Ürək-damar xəstəliklərinin
+              diaqnostikası, müalicəsi və onlayn video konsultasiya. Ürəyinizin
+              sağlamlığı etibarlı əllərdə.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <BookingButton className="rounded-xl bg-teal px-6 py-3 font-medium text-porcelain shadow-soft transition-all hover:bg-teal-deep hover:shadow-soft-lg" />
@@ -222,6 +291,88 @@ export default async function HomePage() {
               </ul>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* ---------------- SEO copy: "Bakıda kardioloq" ---------------- */}
+      <section className="mx-auto max-w-6xl px-5 pt-24">
+        <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-start">
+          <div>
+            <p className="eyebrow eyebrow-tick">Bakıda kardioloq</p>
+            <h2 className="mt-3 max-w-xl font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              Ürək həkimi axtarırsınız?
+            </h2>
+            <div className="mt-6 space-y-4 leading-relaxed text-ink-soft">
+              <p>
+                Bakıda kardioloq seçmək asan deyil — axtarış nəticələrində onlarla ad
+                çıxır, amma ürək məsələsində vacib olan üç şeydir: təcrübə, düzgün
+                müayinə və nəticələrin sizə aydın izah edilməsi. {DOCTOR.name} 15
+                ildən artıqdır ürək-damar xəstəlikləri üzrə çalışır və invaziv
+                kardioloq kimi həm diaqnostika, həm də müalicə mərhələsini özü aparır.
+              </p>
+              <p>
+                Qəbulda şikayətləriniz və risk faktorlarınız dəyərləndirilir, zərurət
+                olduqda EKQ, exokardioqrafiya, Holter monitorinqi və ya tredmil stress
+                test təyin olunur. Nəticələr bir yerdə şərh edilir və sizə anlaşılan
+                dildə fərdi müalicə planı verilir — nə üçün hansı dərmanı qəbul
+                etdiyinizi bilərək gedirsiniz.
+              </p>
+              <p>
+                Bakıdan kənarda yaşayırsınızsa və ya təkrar baxışa ehtiyacınız varsa,
+                onlayn video konsultasiya seçimi var: analizlərinizi birlikdə nəzərdən
+                keçirir, təyin olunmuş müalicəyə ikinci rəy alırsınız.
+              </p>
+            </div>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <BookingButton className="rounded-xl bg-teal px-6 py-3 font-medium text-porcelain shadow-soft transition-all hover:bg-teal-deep hover:shadow-soft-lg" />
+              <a
+                href={CONTACT.phoneHref}
+                className="rounded-xl border border-mist bg-porcelain/70 px-6 py-3 font-medium text-ink transition-colors hover:border-teal hover:text-teal"
+              >
+                {CONTACT.phone}
+              </a>
+            </div>
+          </div>
+
+          <div className="card p-8">
+            <h3 className="font-display text-lg font-semibold text-ink">Qısa məlumat</h3>
+            <dl className="mt-5 space-y-4 text-sm">
+              <div>
+                <dt className="eyebrow text-ink-soft">Həkim</dt>
+                <dd className="mt-1 text-ink">
+                  {DOCTOR.name} — {DOCTOR.title}
+                </dd>
+              </div>
+              <div>
+                <dt className="eyebrow text-ink-soft">İxtisas</dt>
+                <dd className="mt-1 text-ink">Kardiologiya, ürək-damar xəstəlikləri</dd>
+              </div>
+              <div>
+                <dt className="eyebrow text-ink-soft">Yer</dt>
+                <dd className="mt-1 text-ink">{CONTACT.address} · onlayn video konsultasiya</dd>
+              </div>
+              <div>
+                <dt className="eyebrow text-ink-soft">İş saatları</dt>
+                <dd className="mt-1 text-ink">B.e — Cümə 09:00—18:00 · Şənbə 10:00—14:00</dd>
+              </div>
+              <div>
+                <dt className="eyebrow text-ink-soft">Randevu</dt>
+                <dd className="mt-1 text-ink">
+                  <a href={CONTACT.phoneHref} className="text-teal hover:text-teal-deep">
+                    {CONTACT.phone}
+                  </a>{" "}
+                  və ya{" "}
+                  <Link href={SITE.bookingUrl} className="text-teal hover:text-teal-deep">
+                    onlayn
+                  </Link>
+                </dd>
+              </div>
+            </dl>
+            <p className="mt-6 border-t border-mist pt-5 text-xs leading-relaxed text-ink-soft">
+              Təcili hallarda — kəskin döş ağrısı, güclü təngnəfəslik, huşitirmə —
+              gözləmədən <strong className="text-ink">103</strong> nömrəsinə zəng edin.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -337,6 +488,19 @@ export default async function HomePage() {
             </Link>
           </div>
         </div>
+      </section>
+
+      {/* ---------------- FAQ ---------------- */}
+      <section className="mx-auto mt-24 max-w-6xl px-5">
+        <SectionHead eyebrow="Suallar" title="Kardioloq haqqında tez-tez verilən suallar" />
+        <dl className="mt-10 grid gap-4 lg:grid-cols-2">
+          {FAQ.map((f) => (
+            <div key={f.question} className="card p-7">
+              <dt className="font-display text-lg font-semibold leading-snug text-ink">{f.question}</dt>
+              <dd className="mt-3 text-sm leading-relaxed text-ink-soft">{f.answer}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       {/* ---------------- CTA ---------------- */}
