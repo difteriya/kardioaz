@@ -1,13 +1,14 @@
 {
   "mcpServers": {
     "gsc": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "mcp-server-gsc@0.3.0"
+        "tools/gsc-mcp/index.mjs"
       ],
       "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "C:/Users/User/.secrets/kardio-gsc.json"
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:/Users/User/.secrets/kardio-gsc.json",
+        "GSC_SITE_URL": "",
+        "GSC_READONLY": "0"
       }
     }
   }

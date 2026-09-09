@@ -35,3 +35,4 @@ content-drafts/gbp-photos.zip
 *.gsc.json
 *-gsc.json
 service-account*.json
+tools/gsc-mcp/node_modules/

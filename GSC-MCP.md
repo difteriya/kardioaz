@@ -4,7 +4,22 @@ Bir dəfə qurulur. Bundan sonra Claude `kardio.az`-ın sorğularını, kliklər
 göstərilmə saylarını və indeksləmə vəziyyətini birbaşa oxuya bilir — heç bir
 CSV ixracı lazım deyil.
 
-Konfiqurasiya artıq yazılıb: [`.mcp.json`](.mcp.json). Yalnız açar faylı çatmır.
+Server üçüncü tərəf paketi deyil, layihənin öz kodudur:
+[`tools/gsc-mcp/index.mjs`](tools/gsc-mcp/index.mjs) — təxminən 200 sətir, hər
+sətri oxuna bilər. Yalnız Google-un rəsmi `googleapis` kitabxanasından və MCP
+SDK-dan istifadə edir. Konfiqurasiya: [`.mcp.json`](.mcp.json).
+
+Yalnız açar faylı çatmır.
+
+## Serverin verdiyi alətlər
+
+| Alət | Nə edir |
+|---|---|
+| `gsc_list_sites` | Bu servis hesabının görə bildiyi bütün property-lər. Birinci bunu çağırırıq — `siteUrl`-in dəqiq formatını göstərir. |
+| `gsc_search_analytics` | Sorğular, kliklər, göstərilmələr, CTR, orta mövqe. Performance hesabatının arxasındakı data. Filtr və reqex dəstəkləyir, 25 000 sətrə qədər. |
+| `gsc_inspect_url` | Bir səhifə indekslənibmi, nə vaxt taranıb, Google hansı kanonik seçib. |
+| `gsc_list_sitemaps` | Sitemap-ların vəziyyəti. |
+| `gsc_submit_sitemap` | Sitemap göndərir. **Yeganə yazan alət.** `GSC_READONLY=1` etsəniz, ümumiyyətlə görünmür. |
 
 ## Sizin edəcəkləriniz
 
@@ -60,14 +75,14 @@ serverini təsdiqləməyinizi istəyəcək — təsdiqləyin.
 
 ## Bilməli olduğunuz iki şey
 
-- **`mcp-server-gsc` üçüncü tərəf paketidir** (MIT, npm). Servis hesabının açarı
-  ona verilir, yəni Search Console datanıza oxu icazəsi olur. Paketin
-  GitHub repo linki npm-də göstərilmir. Buna görə versiya `0.3.0`-a bağlanıb —
-  avtomatik yenilənmir. Bu risk sizə uyğun deyilsə, deyin, eyni işi görən
-  kiçik bir server layihə daxilində özüm yazaram.
+- **Pulsuzdur.** Search Console API ödənişsizdir və Google Cloud-da billing hesabı
+  tələb etmir. Kvota gündəlik limitlərlə tənzimlənir; bizim istifadə həcmi onun
+  yanına belə yaxınlaşmır. Yeganə istisna URL Inspection-dır — gündə ~2000 sorğu,
+  o da bizə çox-çox artıqdır.
 - **Servis hesabının açarı paroldur.** Kimsə onu ələ keçirsə, Search Console
-  datanızı oxuya bilər (sayta yazma icazəsi vermir). İtirsəniz, Google
-  Cloud-dan həmin açarı silin və yenisini yaradın.
+  datanızı oxuya bilər. Sayta yazmaq və ya Google hesabınıza girmək imkanı vermir.
+  İtirsəniz, Google Cloud-dan həmin açarı silin və yenisini yaradın. Fayl layihə
+  qovluğunda saxlanılmır, `.gitignore`-da da əlavə qorunma var.
 
 ## Qoşulandan sonra nə edəcəyik
 
