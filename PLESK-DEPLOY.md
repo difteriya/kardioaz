@@ -120,7 +120,14 @@ Then Plesk ▸ **Restart App**.
 - Changing a `NEXT_PUBLIC_*` value requires a rebuild (those are inlined at build time);
   server-only vars (service keys, SMTP, admin password) take effect on restart alone.
 
-## F. Cut-over order (DNS is managed at HOSTINGER — nameservers point there)
+## F. Cut-over order
+
+> **DNS moved to Cloudflare** (checked 2026-09-10: nameservers are
+> `beth`/`carlos.ns.cloudflare.com`). The Hostinger instructions below are the
+> historical record of how the cut-over was done — edit records at **Cloudflare**
+> now, not Hostinger. The apex `kardio.az` A record points straight at
+> 185.129.1.250 and is DNS-only (grey cloud); there is no `www` record at all,
+> so https://www.kardio.az does not resolve.
 
 All DNS records are edited in **Hostinger's DNS zone**, NOT in Plesk. Plesk's local DNS zone
 is inert while the nameservers stay at Hostinger. Adding a domain in Plesk therefore never
