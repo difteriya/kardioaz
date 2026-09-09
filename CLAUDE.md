@@ -65,6 +65,14 @@ Owner asked to start Phase 5, then deferred the scoping questions to a call.
   `Physician` schema. Source manifest: `web/.drive-manifest.json`.
   **⚠️ Folders B and D contain identifiable patients — none used. Publishing those needs the
   patients' written consent (legal/00-README.md).**
+- ✅ Clinic address received (2026-09-09): Parlament prospekti 76, Bakı AZ1006
+  (GBP: "76 Parliament Ave, Baku 1006"). Lives in `web/lib/site.ts` → `CONTACT`.
+  NAP must stay identical to the Google Business Profile — see
+  `content-drafts/google-business-profile.md` §11.
+- Google Business Profile in progress (owner). Name + category done; description,
+  services, hours, photos, reviews still open — checklist in that same file §12.
+  Waiting on the verified place URL to replace `CONTACT.mapsUrl`, and on the exact
+  lat/lng before adding `geo` to the schema.
 - Before go-live: `ADMIN_PASSWORD` shared-secret auth is **demo-grade** → real accounts;
   set a secret `STATS_SALT`; the patient export is the whole dataset in one file.
 - Test data still in the local DB (~329 slots, `@kardio.az`/`@example.com` bookings) —

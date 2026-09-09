@@ -105,11 +105,29 @@ export const NAV: readonly NavItem[] = [
   { label: "Əlaqə", href: "/elaqe" },
 ];
 
+/**
+ * NAP (name / address / phone) — must match the Google Business Profile
+ * character for character. Google cross-checks the two; a mismatch costs local
+ * ranking. The GBP is registered as "76 Parliament Ave, Baku 1006".
+ * If any of this changes, change it in the GBP too — see
+ * content-drafts/google-business-profile.md §11.
+ */
 export const CONTACT = {
   phone: "+994 10 382 29 99",
   phoneHref: "tel:+994103822999",
   email: "ahmadovkardio@gmail.com",
-  address: "Bakı, Azərbaycan",
+  /** Display form, AZ. */
+  address: "Parlament prospekti 76, Bakı AZ1006",
+  addressStreet: "Parlament prospekti 76",
+  addressLocality: "Bakı",
+  postalCode: "AZ1006",
+  addressCountry: "AZ",
+  /**
+   * Search-by-address link. Replace with the GBP place URL (g.page/… or the
+   * maps.app.goo.gl short link from the profile) once the listing is verified —
+   * linking the verified place is a stronger association than a text search.
+   */
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=76+Parliament+Ave%2C+Baku+1006",
   emergency: "103",
 } as const;
 

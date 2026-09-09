@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PulseMark } from "@/components/pulse-mark";
 import { BookingButton } from "@/components/booking-button";
 import { JsonLd } from "@/components/json-ld";
-import { organizationSchema, breadcrumbSchema } from "@/lib/schema";
+import { organizationSchema, breadcrumbSchema, physicianSchema } from "@/lib/schema";
 import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -24,6 +24,7 @@ export default function ContactPage() {
     <div className="mx-auto max-w-6xl px-5 pt-14">
       <JsonLd
         data={[
+          physicianSchema(),
           organizationSchema(),
           breadcrumbSchema([
             { name: "Ana səhifə", url: "/" },
@@ -52,7 +53,17 @@ export default function ContactPage() {
                 {CONTACT.email}
               </a>
             </li>
-            <li className="text-ink-soft">{CONTACT.address}</li>
+            <li>
+              <a
+                href={CONTACT.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-ink-soft hover:text-teal"
+              >
+                {CONTACT.address}
+                <span className="mt-1 block text-xs text-teal">Xəritədə aç →</span>
+              </a>
+            </li>
           </ul>
         </div>
 

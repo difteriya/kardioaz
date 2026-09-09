@@ -181,23 +181,79 @@ Hər rəyə 24 saat ərzində cavab yazın — cavab verilən profillər daha ya
 
 ---
 
-## 11. NAP uyğunluğu
+## 11. NAP uyğunluğu ✅
 
-Ad, ünvan, telefon **hər yerdə eyni simvol-simvol** olmalıdır:
+Ünvan alındı (2026-09-09) və sayta yazıldı. Hər yerdə **simvol-simvol eyni** qalmalıdır:
 
 | | |
 |---|---|
 | Ad | Dr. Kənan Əhmədov — Kardioloq |
+| Ünvan (GBP, EN) | 76 Parliament Ave, Baku 1006 |
+| Ünvan (sayt, AZ) | Parlament prospekti 76, Bakı AZ1006 |
 | Telefon | +994 10 382 29 99 |
 | Sayt | https://kardio.az |
-| Ünvan | ⚠️ **Dəqiq küçə ünvanı lazımdır** |
 
-**Sahibə sual:** GBP üçün tam ünvan (küçə, bina, klinika adı) hansıdır?
-Hazırda saytda yalnız "Bakı, Azərbaycan" var. Dəqiq ünvan olmadan
-Google Maps-də görünmək və lokal paketdə çıxmaq mümkün deyil.
-Ünvan alınan kimi `web/lib/site.ts` → `CONTACT.address` və
-`web/lib/schema.ts` → `PostalAddress` (streetAddress, postalCode, geo) yenilənməlidir.
+Saytda harada yaşayır: `web/lib/site.ts` → `CONTACT` (streetAddress, postalCode,
+mapsUrl). Oradan `PostalAddress` schema-sına, `/elaqe` səhifəsinə, footer-ə və
+ana səhifədəki məlumat kartına avtomatik gedir. **Ünvan dəyişsə, yalnız bir yerdə
+dəyişdirilir.**
+
+⚠️ GBP təsdiqləndikdən sonra profildəki qısa linki (`g.page/r/…` və ya
+`maps.app.goo.gl/…`) mənə verin — `CONTACT.mapsUrl`-i onunla əvəz edim. Təsdiqlənmiş
+məkana keçid mətn axtarışından güclü siqnaldır.
 
 Eyni məlumatla qeydiyyatdan keçiriləcək digər kataloqlar:
 Yandex Biznes, Apple Maps (Apple Business Connect), Facebook səhifəsi,
 Instagram biznes profili, `tabib.az` / `saglamliq.az` tipli yerli həkim kataloqları.
+
+---
+
+## 12. Nə qalıb — sıra ilə
+
+Ad ✅ və kateqoriya ✅ hazırdır. Qalanları təsir gücünə görə sıralanıb.
+
+### Bu həftə (ən böyük təsir)
+
+1. **Təsdiq (verification).** Təsdiqlənməmiş profil xəritədə görünmür. Kartpoçt
+   və ya video ilə. Bu bitməyincə qalan hər şey gözləyir.
+2. **Təsvir** — §3-dəki 750 simvolluq mətni yapışdırın.
+3. **İş saatları** — §6. Saytdakı ilə eyni olmalıdır.
+4. **Xidmətlər** — §4-dəki 12 xidməti bir-bir əlavə edin. Çoxu bunu boş buraxır;
+   ən asan üstünlükdür.
+5. **Randevu linki (Appointment URL)** — `https://kardio.az/randevu`.
+   Sayt linki isə `https://kardio.az`.
+6. **Şəkillər** — §7. Ən azı 10, mütləq binanın çöl görünüşü ilə.
+   Yükləməzdən əvvəl faylları adlandırın.
+
+### İlk ay
+
+7. **Rəylər.** "Ən yaxşı kardioloq" sorğusunu Google əsasən rəy sayı və balı ilə
+   həll edir. Hədəf: ilk ayda 10–15 rəy, sonra həftədə 2–3. Mətn §10-dadır.
+   Hər rəyə 24 saat ərzində cavab yazın.
+8. **Q&A** — §8-dəki 5 sualı özünüz əlavə edib cavablayın.
+9. **Google Posts** — həftədə 1. Mövzular §9-da.
+10. **Digər kataloqlar** — Yandex Biznes (AZ-də ciddi paydır), Apple Maps,
+    Facebook, Instagram. Eyni NAP.
+
+### Sayt tərəfində qalanlar (mən edəcəyəm)
+
+11. **Sayt hələ yayımlanmayıb.** Bütün bu SEO işi lokaldadır — Phase 3 (miqrasiya
+    və launch) hələ baş tutmayıb. GBP linki işləyən sayta getməlidir; bu, sıradakı
+    ən vacib addımdır.
+12. **Google Search Console** — domen təsdiqi, sitemap göndərilməsi. Launch-dan
+    dərhal sonra.
+13. **Xəritə (embed) `/elaqe` səhifəsində** — GBP təsdiqlənəndən sonra əlavə edim.
+14. **`geo` koordinatları schema-ya** — GBP-dən dəqiq enlik/uzunluq götürüb
+    `PostalAddress`-in yanına yazacağam. Təxmin etmirəm, dəqiq rəqəm lazımdır.
+15. **Ayrıca "Bakıda kardioloq" landing səhifəsi** — ana səhifə brend sorğularını,
+    ayrıca səhifə isə lokal sorğunu tutur. Tövsiyə edirəm, amma launch-dan sonra.
+16. **Phase 0.5 — açar söz xəritəsi.** Search Console 12 aylıq "Queries" ixracı
+    lazımdır (PROJECT-PLAN §11.1). Launch-dan sonra data yığılan kimi.
+
+### Etməyin
+
+- Adı "Bakıda ən yaxşı kardioloq" formasına salmayın — suspend riski.
+- Rəy müqabilində endirim/hədiyyə təklif etməyin.
+- Xəstə üzü görünən şəkil yükləməyin (yazılı razılıq yoxdur — `legal/00-README.md`).
+- İki ayrı profil açmayın (klinika + həkim), əgər ünvan eynidirsə — dublikat
+  profillər bir-birini zəiflədir.

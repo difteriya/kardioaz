@@ -60,10 +60,13 @@ export function physicianSchema() {
     email: CONTACT.email,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Bakı",
+      streetAddress: CONTACT.addressStreet,
+      addressLocality: CONTACT.addressLocality,
       addressRegion: "Bakı",
-      addressCountry: "AZ",
+      postalCode: CONTACT.postalCode,
+      addressCountry: CONTACT.addressCountry,
     },
+    hasMap: CONTACT.mapsUrl,
     areaServed: [
       { "@type": "City", name: "Bakı" },
       { "@type": "Country", name: "Azərbaycan" },
@@ -126,10 +129,13 @@ export function organizationSchema() {
     email: CONTACT.email,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Bakı",
+      streetAddress: CONTACT.addressStreet,
+      addressLocality: CONTACT.addressLocality,
       addressRegion: "Bakı",
-      addressCountry: "AZ",
+      postalCode: CONTACT.postalCode,
+      addressCountry: CONTACT.addressCountry,
     },
+    hasMap: CONTACT.mapsUrl,
     areaServed: [
       { "@type": "City", name: "Bakı" },
       { "@type": "Country", name: "Azərbaycan" },
