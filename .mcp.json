@@ -7,7 +7,7 @@
       ],
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "C:/Users/User/.secrets/kardio-gsc.json",
-        "GSC_SITE_URL": "",
+        "GSC_SITE_URL": "sc-domain:kardio.az",
         "GSC_READONLY": "0"
       }
     }
