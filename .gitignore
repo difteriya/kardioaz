@@ -30,3 +30,8 @@ migration/post-images/
 
 content-drafts/*.fetched.*
 content-drafts/gbp-photos.zip
+
+# Never commit service-account keys.
+*.gsc.json
+*-gsc.json
+service-account*.json
