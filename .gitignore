@@ -29,3 +29,4 @@ migration/*.xml
 migration/post-images/
 
 content-drafts/*.fetched.*
+content-drafts/gbp-photos.zip
